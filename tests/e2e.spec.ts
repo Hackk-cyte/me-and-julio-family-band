@@ -65,7 +65,9 @@ test('the family record plays, pauses, seeks, ends, and spins only while playing
   await expect.poll(() => page.locator('audio').evaluate((a: HTMLAudioElement) => a.ended)).toBe(true);
   await expect(page.getByTestId('vinyl')).not.toHaveClass(/spinning/);
   await page.getByRole('button', { name: 'Stop and restart' }).click();
-  expect(await page.locator('audio').evaluate((a: HTMLAudioElement) => a.currentTime)).toBe(0);
+  await expect.poll(() => page.locator('audio').evaluate((a: HTMLAudioElement) => a.paused)).toBe(true);
+  // WebKit can report a stable 10 ms start offset after seeking this AAC file to 0.
+  await expect.poll(() => page.locator('audio').evaluate((a: HTMLAudioElement) => a.currentTime)).toBeLessThanOrEqual(0.05);
   expect(errors).toEqual([]);
   expect(broken).toEqual([]);
   await page.screenshot({ path: testInfo.outputPath('gift-player.png'), fullPage: true });
