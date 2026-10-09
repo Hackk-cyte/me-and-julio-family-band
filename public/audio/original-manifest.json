@@ -1,0 +1,109 @@
+{
+  "model": "htdemucs",
+  "demucs": "4.0.1",
+  "torch": "2.5.1+cpu",
+  "modelSources": [
+    "drums",
+    "bass",
+    "other",
+    "vocals"
+  ],
+  "threads": 4,
+  "device": "cpu",
+  "segmentSeconds": 4,
+  "shifts": 1,
+  "commonGain": 0.7150765755446278,
+  "worstCombinationBoundBeforeGain": 1.2306374311447144,
+  "source": {
+    "frames": 7357953,
+    "sampleRate": 44100,
+    "channels": 2,
+    "duration": 166.8470068027211,
+    "peak": 1.016239881515503,
+    "rms": 0.1456036143338663
+  },
+  "tracks": {
+    "guitar-and-melody": {
+      "frames": 7357953,
+      "sampleRate": 44100,
+      "channels": 2,
+      "duration": 166.8470068027211,
+      "peak": 0.7873678803443909,
+      "rms": 0.052008939076154094,
+      "delivery": {
+        "file": "original-acoustic.mp3",
+        "bytes": 5341562,
+        "sha256": "b73ab03d96152e593a363d19e62224aa291ddf05a55d5e76984c437557102f4f",
+        "decodedFrames": 7357953,
+        "decodedPeak": 0.7868871688842773,
+        "decodedRms": 0.05204313737232054
+      }
+    },
+    "bass": {
+      "frames": 7357953,
+      "sampleRate": 44100,
+      "channels": 2,
+      "duration": 166.8470068027211,
+      "peak": 0.3007732033729553,
+      "rms": 0.05704010637210887,
+      "delivery": {
+        "file": "original-bass.mp3",
+        "bytes": 5341562,
+        "sha256": "c37645ae1feea700f33efdb85aad89e9408d33f4927b8644af19ec453889444b",
+        "decodedFrames": 7357953,
+        "decodedPeak": 0.3007793128490448,
+        "decodedRms": 0.0570370142073004
+      }
+    },
+    "percussion": {
+      "frames": 7357953,
+      "sampleRate": 44100,
+      "channels": 2,
+      "duration": 166.8470068027211,
+      "peak": 0.5202503800392151,
+      "rms": 0.027669950116162353,
+      "delivery": {
+        "file": "original-percussion.mp3",
+        "bytes": 5341562,
+        "sha256": "233bee870bb058754cf2b83c92d2432f96f9d0b0a84aa1c4513c4b919d02f52c",
+        "decodedFrames": 7357953,
+        "decodedPeak": 0.5272703170776367,
+        "decodedRms": 0.027672039989168753
+      }
+    },
+    "vocal": {
+      "frames": 7357953,
+      "sampleRate": 44100,
+      "channels": 2,
+      "duration": 166.8470068027211,
+      "peak": 0.5543999671936035,
+      "rms": 0.05612374126685145,
+      "delivery": {
+        "file": "vocal.mp3",
+        "bytes": 5341562,
+        "sha256": "0800d034363d460393717665cf75e7ac868ce6fd9d8c21d89351075890bbfefd",
+        "decodedFrames": 7357953,
+        "decodedPeak": 0.5541383028030396,
+        "decodedRms": 0.05612691725775166
+      }
+    }
+  },
+  "reconstructionMaxAbsError": 1.1920928955078125E-07,
+  "elapsedSeconds": 125.98166823387146,
+  "decodedWorstCombinationPeak": 0.7940131425857544,
+  "decodedWorstArbitraryFaderBound": 0.8797941207885742,
+  "sourceFile": {
+    "file": "original-mix.mp3",
+    "bytes": 2670381,
+    "sha256": "22f830132ea6a6e90d76b83114449c93ede77b3e1c2bdf0b10a20d20483602ca"
+  },
+  "modelCheckpointSha256": "8726e21a993978c7ba086d3872e7608d7d5bfca646ca4aca459ffda844faa8b4",
+  "rights": "User explicitly confirmed public hosting and separated instrumental versions. The later request to add singing from a newly supplied licensed full mix implies authorization to use and separate that file for this same public project. No independent license document supplied.",
+  "audition": "No listening-capable audition performed. Metrics do not prove subjective quality or original-recording fidelity.",
+  "labels": {
+    "original-acoustic.mp3": "Guitars and remaining accompaniment, estimated residual group",
+    "original-bass.mp3": "Bass, AI-separated estimate",
+    "original-percussion.mp3": "Percussion, AI-separated drum-group estimate",
+    "vocal.mp3": "Singing, AI-separated vocal estimate"
+  }
+}
