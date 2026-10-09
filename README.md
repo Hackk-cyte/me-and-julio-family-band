@@ -2,12 +2,12 @@
 
 A warm record-player gift for Mom, with her portrait on a slowly spinning vinyl record, licensed audio and a real synchronized mixer.
 
-Website target: https://hackk-cyte.github.io/me-and-julio-family-band/ (production verification is recorded in docs/verification.md).
+Public website: https://hackk-cyte.github.io/me-and-julio-family-band/ (production verification is recorded in docs/verification.md).
 
 ## Listen
 
-- Press **Play Full Band** for the instrumental parts.
-- **Add singing** brings in the separated Paul Simon vocal on the same source timeline.
+- Press **Play Full Band** to hear the supplied full recording, including singing.
+- Choose **Explore the band**, then **Add singing** to bring in the separated Paul Simon vocal on the same source timeline.
 - Solo one or several parts, mute, adjust volumes, pause, resume, seek, or bookmark a moment.
 - **Original recording** plays the supplied complete mix for maximum available fidelity.
 - **The instrumental** plays the separately supplied instrumental. It is not combined with the vocal because its timeline differs.
@@ -52,3 +52,10 @@ The optional official YouTube player contacts YouTube only when selected. Google
 
 `src/audio/engine.ts` owns transport and synchronization. `src/audio/catalog.ts` defines the shipped tracks. `public/audio/*manifest.json` records measurements and hashes. `tests` contains browser acceptance tests. `docs` holds provenance and final verification.
 
+
+
+## iPhone-first update
+
+The first Play tap uses the supplied full recording, including vocals, without loading four decoded stems. The instrument mixer remains available under Explore the band. Mom's record appears first on phones; buttons and sliders have at least 44px touch areas. Audio interruptions show Resume and recover from a user tap without creating duplicate sources. On browsers with read-only media volume, the full-recording player directs listeners to hardware volume buttons; instrument faders use Web Audio gain controls.
+
+Run `npx playwright install webkit` then `npx playwright test --config playwright.webkit.config.ts` for WebKit checks. This Windows WebKit port has no AudioContext, so its mixer/interruption checks are explicitly skipped. Chromium covers real Web Audio controls and interruption recovery. These tests do not replace physical iPhone Safari, lock-screen, call-interruption or AirPlay testing.
