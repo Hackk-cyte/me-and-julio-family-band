@@ -23,6 +23,21 @@ function setup(durations = [180, 180]) {
 }
 
 describe('MultitrackEngine', () => {
+  it('shows interrupted audio as paused and resumes existing sources without duplication', async () => {
+    const { engine, inputs, context, sources } = setup();
+    await engine.load(inputs); await engine.play();
+    context.currentTime = 25.025;
+    context.state = 'interrupted';
+    expect(engine.getSnapshot().playing).toBe(false);
+    expect(engine.getSnapshot().tracks.every(t => !t.active)).toBe(true);
+    expect(engine.getSnapshot().position).toBeCloseTo(20);
+    context.resume.mockImplementationOnce(async () => { context.state = 'running'; });
+    await engine.play();
+    expect(context.resume).toHaveBeenCalledTimes(2);
+    expect(sources).toHaveLength(2);
+    expect(engine.getSnapshot().playing).toBe(true);
+    expect(engine.getSnapshot().position).toBeCloseTo(20);
+  });
   it('unlocks browser audio before any files have loaded', async () => {
     const { engine, context } = setup();
     await engine.unlock();

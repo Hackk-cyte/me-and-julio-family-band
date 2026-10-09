@@ -75,12 +75,15 @@ export class MultitrackEngine {
 
   async play(): Promise<void> {
     if (!this.tracks.length) throw new Error('Load aligned audio tracks before playing.');
-    if (this.playing) return;
+    if (this.playing && this.context?.state === 'running') return;
     const request = ++this.playRequest;
     const context = this.getContext();
     await context.resume();
     if (request !== this.playRequest || this.disposed) return;
     if (context.state !== 'running') throw new Error('Audio could not start. Tap Play again to allow browser audio.');
+    // Safari may interrupt a live context when the phone locks or another app
+    // takes audio focus. Resume its existing sources instead of duplicating them.
+    if (this.playing) return;
     if (this.position >= this.duration) this.position = 0;
     this.startSources();
   }
@@ -194,9 +197,10 @@ export class MultitrackEngine {
   }
 
   getSnapshot(): EngineSnapshot {
+    const playing = this.playing && this.context?.state === 'running';
     return {
-      duration: this.duration, position: this.currentPosition(), playing: this.playing,
-      tracks: this.tracks.map(t => ({ id: t.id, mute: t.mute, solo: t.solo, volume: t.volume, active: this.playing && this.audible(t) })),
+      duration: this.duration, position: this.currentPosition(), playing,
+      tracks: this.tracks.map(t => ({ id: t.id, mute: t.mute, solo: t.solo, volume: t.volume, active: playing && this.audible(t) })),
     };
   }
 
