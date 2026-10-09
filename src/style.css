@@ -7,3 +7,47 @@
 .singing-toggle{display:flex;align-items:center;gap:9px;width:100%;padding:13px 15px;margin-top:18px;border:1px solid #b3956855;background:#46372955;border-radius:7px;color:#d6b382;font-size:12px;text-align:left}.singing-toggle.enabled{border-color:#b2c39588;background:#60704c33;color:#cbd6b5}.singing-toggle span{margin-left:auto;font-size:9px;color:#ac9b83}.about-player{font-size:10px;color:#d1b183;background:none;border:1px solid #b69a7144;padding:8px 10px;border-radius:4px;margin-right:15px;margin-bottom:10px}@media(max-width:600px){.singing-toggle{flex-wrap:wrap}.singing-toggle span{font-size:8px;margin-left:0;width:100%}}
 .hero-copy>.full-play{margin-top:25px;width:max-content}@media(max-width:600px){.hero-copy>.full-play{margin:22px auto 0;width:240px}}
 @media(max-width:600px){.transport{flex-wrap:wrap}.master-volume{display:flex;flex-basis:100%;justify-content:flex-end;margin-top:8px}.master-volume input{width:120px}}
+
+/* Comfortable touch controls without enlarging their visual tracks. */
+button,.import-label{min-height:44px}
+.round-button{width:44px;height:44px}
+input[type=range],.timeline input{height:44px;margin:0;touch-action:pan-y}
+footer summary{min-height:44px;display:flex;align-items:center}
+@media(max-width:600px){
+ .app{padding-bottom:env(safe-area-inset-bottom,0px)}
+ .masthead{padding:12px max(19px,env(safe-area-inset-left,0px));min-height:60px}
+ main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+ .hero{padding:18px 0 24px;gap:18px}
+ .turntable{order:-1;width:190px;padding:11px 13px 10px;border-radius:10px}
+ .vinyl{margin:12px 10px 13px 0}
+ .portrait{width:54%;height:54%;top:23%;left:23%;border-width:3px}
+ .tonearm{height:76px;top:41px;right:12px;width:8px}
+ .tonearm i{width:19px;height:19px;left:-5px;top:-5px}
+ .tonearm b{width:13px;height:24px;bottom:-5px;left:-2px}
+ .deck-label,.deck-label span,.deck-bottom{font-size:5px;letter-spacing:.7px}
+ .label-caption{font-size:4.5px;padding:4px 0 5px;letter-spacing:.5px}
+ .hero-copy{width:100%}
+ .hero .eyebrow{margin:0 0 6px;font-size:7px}
+ .hero h1{font-size:43px;line-height:1.04;margin:6px 0 8px;letter-spacing:-1.5px}
+ .hero h1>span{font-size:24px;line-height:1.15;margin-top:5px}
+ .intro{font-size:11px;line-height:1.5;margin:8px 0}
+ .dedication{margin:10px 0;font-size:11px}
+ .hero-copy>.full-play{margin:14px auto 0;width:240px;max-width:100%;min-height:48px}
+ .mode-bar{padding:0 8px;gap:4px}
+ .mode-bar button{flex:1;justify-content:center;min-width:0;min-height:48px;font-size:10px;line-height:1.4;text-align:center;padding:10px 2px}
+ .mode-bar button svg{display:none}
+ .player-content{padding:20px 14px}
+ .round-button{width:44px;height:44px}
+ .transport{gap:8px;margin:18px 0 8px}
+ .transport>.full-play{letter-spacing:.5px;padding:12px 7px}
+ .master-volume{margin-top:0}
+ .master-volume input{width:140px}
+ .track-actions{gap:5px}
+ .track-actions button{min-width:44px;min-height:44px}
+ .track-volume{margin-top:8px;gap:5px}
+ .track-volume span{min-width:19px}
+ .session-tools button,.import-label,.about-player{min-height:44px}
+ footer details>a{display:inline-flex;align-items:center;min-height:44px}
+}
+.phone-volume-hint{font-size:11px;line-height:1.5;color:#bba98f;margin:0 0 10px;text-align:right}
+@media(max-width:600px){.hero h1 br{display:block}}
