@@ -9,6 +9,7 @@ async function setRange(page: Page, name: string, value: number) {
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
+    if (typeof AudioContext === 'undefined') return;
     // Test-only instrumentation: real browser nodes and clock, no simulated audio.
     const probe = { sources: [] as any[], gains: [] as any[] };
     (window as any).__audioProbe = probe;
@@ -70,10 +71,11 @@ test('the family record plays, pauses, seeks, ends, and spins only while playing
   await page.screenshot({ path: testInfo.outputPath('gift-player.png'), fullPage: true });
 });
 
-test('real stems load, share a clock, contain signal, and respond to the mixer', async ({ page }, testInfo) => {
+test('real stems load, share a clock, contain signal, and respond to the mixer', async ({ page, browserName }, testInfo) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('./');
+  test.skip(browserName === 'webkit' && process.platform === 'win32' && await page.evaluate(() => typeof AudioContext === 'undefined'), 'Windows Playwright WebKit port does not provide Web Audio; requires macOS WebKit or a real iPhone.');
   await page.getByRole('button', { name: 'Explore the band', exact: true }).click();
   await page.getByRole('button', { name: 'PLAY FULL BAND', exact: true }).click();
   const tracks = page.locator('article.track');
@@ -162,13 +164,14 @@ test('the full recording is hosted and plays without an external account', async
   await page.getByRole('button', { name: 'Stop and restart' }).click();
 });
 
-test('bad local audio produces a clear error without uploading the file', async ({ page }) => {
+test('bad local audio produces a clear error without uploading the file', async ({ page, browserName }) => {
   const uploads: string[] = [];
   page.on('request', request => { if (['POST', 'PUT', 'PATCH'].includes(request.method())) uploads.push(request.url()); });
   await page.goto('./');
+  const unavailableWebAudio = browserName === 'webkit' && process.platform === 'win32' && await page.evaluate(() => typeof AudioContext === 'undefined');
   await page.getByRole('button', { name: 'Explore the band', exact: true }).click();
   await page.getByLabel('Import aligned audio tracks').setInputFiles({ name: 'invalid.wav', mimeType: 'audio/wav', buffer: Buffer.from('not audio') });
-  await expect(page.getByRole('alert')).toContainText('Could not decode');
+  await expect(page.getByRole('alert')).toContainText(unavailableWebAudio ? 'could not initialize 44.1 kHz audio' : 'Could not decode');
   expect(uploads).toEqual([]);
 });
 
